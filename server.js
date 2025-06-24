@@ -6,13 +6,15 @@ require('dotenv').config();
 
 const app = express();
 
-// Middleware
+// ✅ CORS Middleware - Allow Netlify Frontend
 app.use(cors({
-  origin: 'https://your-netlify-site.netlify.app'  // ✅ UPDATE THIS
+  origin: 'https://precious-cucurucho-ae8f10.netlify.app'
 }));
+
+// Middleware
 app.use(express.json());
 
-// MongoDB Connection
+// ✅ MongoDB Atlas Connection
 const mongoURI = process.env.MONGO_URI || 'mongodb+srv://pallahemahimaja:hemahimaja@cluster0.7ijjcut.mongodb.net/todolist?retryWrites=true&w=majority&appName=Cluster0';
 
 mongoose.connect(mongoURI, {
@@ -22,7 +24,7 @@ mongoose.connect(mongoURI, {
 .then(() => console.log('✅ Connected to MongoDB Atlas'))
 .catch((err) => console.error('❌ MongoDB connection error:', err));
 
-// Root route
+// Root Test Route
 app.get('/', (req, res) => {
   res.send('🟢 Todo API is running. Use /api/todos for API access.');
 });
@@ -30,7 +32,7 @@ app.get('/', (req, res) => {
 // Todo Routes
 app.use('/api/todos', todoRoutes);
 
-// Start Server
+// Server Listen
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
